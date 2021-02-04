@@ -1,3 +1,7 @@
+Lab 7 - go through https://github.com/Vaishali-Tapaswi/SynMultiThreadingFeb/blob/main/Lab1.java
+	Understand sync, wait, notify -> THread Dump -> see WAITING (on object monitor)
+
+-----------------------
 Lab 6 - Create two buttons - AddFastBall and AddSlowBall
 	Fastball - red colour
 	SlowBall - yello Color
