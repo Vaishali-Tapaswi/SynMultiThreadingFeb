@@ -101,3 +101,8 @@ public class Lab4 {
 		t3.start();
 }
 }
+
+Lab 5 - Copy Lab4.java to Lab5.java, change any thread as daeman thread 
+		t1.setDaemon(true);
+	Observe JVM does not wait for that thread to complete.	
+	
