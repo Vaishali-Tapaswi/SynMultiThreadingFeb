@@ -1,3 +1,40 @@
+Lab 8 - Modify this code for list synchronization 
+	import java.util.ArrayList;
+	import java.util.List;
+
+	class Lab2Helper extends Thread{
+		private List<String> list;
+		public Lab2Helper(List<String> list){
+			this.list = list;
+		}
+
+		@Override
+		public void run() {
+			for (int  i=0; i<1000;i++){
+					list.add("str"+i);
+		}
+			System.out.println("Completing "+ Thread.currentThread().getName());
+	}
+	}
+
+	public class Lab2 {
+
+		public static void main(String[] args) throws Exception {
+			List list = new ArrayList<>();
+			Lab2Helper[] arr = new Lab2Helper[5];
+			for (int  i=0; i<5;i++){
+					arr[i] = new Lab2Helper(list);
+					arr[i].start();
+			}
+			for (int  i=0; i<5;i++){
+				arr[i].join();
+			}
+
+			System.out.println("End of Main with all threads " + list.size());
+	}
+	}
+
+---------------
 Lab 7 - go through https://github.com/Vaishali-Tapaswi/SynMultiThreadingFeb/blob/main/Lab1.java
 	Understand sync, wait, notify -> THread Dump -> see WAITING (on object monitor)
 
