@@ -1,0 +1,39 @@
+Lab 1 - Create a simple class with main method , modify main method to include 
+    	System.out.println("Enter a number to continue..");
+		  Scanner scanner = new Scanner(System.in);
+		  scanner.nextInt();
+      
+      Start commandprompt -> jvisualvm
+        select application - go to threads
+     
+Lab 2 - Create a class extends Thread
+    class Lab2Support extends Thread{
+      @Override
+      public void run() {
+        for(int i = 0; i < 500;i++){
+          System.out.println("Lab2SupportThread " + Thread.currentThread().getName() + "  " + i);
+          try{Thread.sleep(100);}catch(Exception e){}
+        }
+      }
+    }
+
+  public class Lab2 {
+
+	public static void main(String[] args) {
+		System.out.println("Enter a number to continue..");
+		Scanner scanner = new Scanner(System.in);
+		scanner.nextInt();
+
+		
+		
+		Lab2Support ls = new Lab2Support();
+		ls.start();
+		for(int i = 0; i < 500;i++){
+			System.out.println("MainThread " + Thread.currentThread().getName() + "  " + i);
+			try{Thread.sleep(100);}catch(Exception e){}
+		}
+  }
+  }
+  
+  Start jvisualvm and observe thread (dump)
+  
