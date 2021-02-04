@@ -37,3 +37,46 @@ Lab 2 - Create a class extends Thread
   
   Start jvisualvm and observe thread (dump)
   
+Lab 3 - 
+import java.util.Scanner;
+
+class Lab3Support implements Runnable{
+
+	static boolean flag = false;
+	
+	@Override
+	public void run() {
+		for (int i = 0; i<99999999 && flag == false;i++){
+			if (i%100000==0)
+					System.out.println(Thread.currentThread().getName() +  " " + i);
+		}
+		if (flag == false){
+			System.out.println("Current Chosen Thread is  " + Thread.currentThread().getName());
+			flag = true;
+		}
+	}
+}
+
+public class Lab3 {
+
+	public static void main(String[] args) {
+		System.out.println("Enter a number to continue..");
+		Scanner scanner = new Scanner(System.in);
+		scanner.nextInt();
+		Thread t1 = new Thread(new Lab3Support());
+		t1.setName("1");
+		
+		Thread t2 = new Thread(new Lab3Support());
+		t2.setName("2");
+		
+		Thread t3 = new Thread(new Lab3Support());
+		t3.setName("3");
+		
+		t1.start();
+		t2.start();
+		t3.start();
+
+	}
+
+}
+
