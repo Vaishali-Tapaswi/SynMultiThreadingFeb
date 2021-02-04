@@ -1,3 +1,9 @@
+Lab 6 - Create two buttons - AddFastBall and AddSlowBall
+	Fastball - red colour
+	SlowBall - yello Color
+
+
+------------------------
 Lab 1 - Create a simple class with main method , modify main method to include 
     	System.out.println("Enter a number to continue..");
 		  Scanner scanner = new Scanner(System.in);
