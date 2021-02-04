@@ -1,4 +1,9 @@
-Lab 8 - Modify this code for list synchronization 
+Lab 8 - Modify this code for list synchronization  (	List list = Collections.synchronizedList(new ArrayList<>());
+	or 	synchronized (list) {
+				list.add("str"+i);
+			}
+		
+	)
 	import java.util.ArrayList;
 	import java.util.List;
 
