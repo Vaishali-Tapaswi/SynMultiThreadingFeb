@@ -1,3 +1,7 @@
 Lab1  - 
 		class .. extends Thread ..run(for loop with random sleep)
 		Start 3 threads from main and main should stop execution till one of the threads complete its execution
+
+Lab 2 - Write Thread for processing -> elctrification, Colouring, furniture, ready
+	main -> create 3 threads and observe there execution.
+	
