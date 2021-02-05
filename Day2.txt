@@ -137,3 +137,29 @@ public class Lab3 {
 }
 
 Lab 4 - Modify same code for Filtering of String Data and return String collection
+
+Lab 5 - 
+
+public class Lab1 {
+	public static void main(String[] args) {
+		System.out.println("Current Time = " + new Date() + " in thread " + Thread.currentThread().getName());
+		Runnable r = ()->System.out.println(new Date() + " in thread " + Thread.currentThread().getName());
+		ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+		ses.schedule(r, 5, TimeUnit.SECONDS);
+	}
+	
+}
+
+
+public class Lab2 {
+	public static void main(String[] args) {
+		System.out.println("Current Time = " + new Date() + " in thread " + Thread.currentThread().getName());
+		Runnable r = ()->System.out.println(new Date() + " in thread " + Thread.currentThread().getName());
+		ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+	//	ses.schedule(r, 5, TimeUnit.SECONDS);
+		ses.scheduleAtFixedRate(r,5, 2, TimeUnit.SECONDS);
+	}
+	
+}
+
+scheduleAtFixedRate Vs 	scheduleWithFixedDelay
