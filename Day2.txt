@@ -49,3 +49,96 @@ Lab 2 - Write Thread for processing -> elctrification, Colouring, furniture, rea
 		t3.start();
 	}
 	}
+Lab 3 - ForkJoinPool
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.RecursiveTask;
+import java.util.function.Predicate;
+class MyRecursiveTask extends RecursiveTask<List<Integer>>
+{
+	List<Integer> list;
+	Predicate<Integer> filter;
+	
+	public MyRecursiveTask(List<Integer> list, Predicate<Integer> filter) {
+		this.list = list;
+		this.filter = filter;
+	}
+/*
+	 private List<MyRecursiveTask> forkthetasks() {
+	        List<MyRecursiveTask> subtasks =     new ArrayList<MyRecursiveTask >();
+
+	        MyRecursiveTask  subtask1 = new MyRecursiveTask (list.subList(0, list.size()/2), filter);
+	        MyRecursiveTask  subtask2 = new MyRecursiveTask (list.subList( list.size()/2,  list.size()), filter);
+	        subtasks.add(subtask1);
+	        subtasks.add(subtask2);
+	        return subtasks;
+	    }
+*/	
+protected List<Integer> compute() {
+		System.out.println("In compute of RecursiveTask, current list size " + list.size()  + " , " + Thread.currentThread().getName());
+		 //if work is above threshold, break tasks up into smaller tasks
+        if(this.list.size() >=20) {
+            System.out.println("Splitting workLoad : " + this.list.size());
+            List<MyRecursiveTask> subtasks =     new ArrayList<MyRecursiveTask >();
+
+	        MyRecursiveTask  subtask1 = new MyRecursiveTask (list.subList(0, 10), filter);
+	        MyRecursiveTask  subtask2 = new MyRecursiveTask (list.subList( 10,  list.size()), filter);
+	        subtasks.add(subtask1);
+	        subtasks.add(subtask2);
+	 
+     //       List<MyRecursiveTask > subtasks =   forkthetasks();
+
+            for(MyRecursiveTask  subtask : subtasks){
+                subtask.fork();
+            }
+        
+        	List<Integer> list1 = new ArrayList<Integer>(); 
+          
+            for(MyRecursiveTask  subtask : subtasks) {
+               list1.addAll(subtask.join());
+            }
+            return list1;
+
+        } else {
+            System.out.println("Doing workLoad myself: " + this.list);
+        	List<Integer> list1 = new ArrayList<Integer>(); 
+        	
+        	for (int i = 0; i< list.size();i++){
+        		try{Thread.sleep(100);}catch(Exception e){}
+    			if (filter.test(list.get(i)))
+    					list1.add(list.get(i));
+    		}
+    		return list1;
+        }
+	}
+}
+
+
+
+public class Lab3 {
+
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Entter a number to continue..");
+		scanner.nextInt();
+	
+
+		List<Integer> list = new ArrayList<>();
+		for (int i = 0; i< 20;i++){
+				list.add((int)(Math.random() *1000));
+		}
+		Predicate<Integer> pred = (num)->num>500;
+		System.out.println("Before Creating Recursive Task");		
+		MyRecursiveTask task = new MyRecursiveTask(list, pred);
+		System.out.println("Before Creating ForkJoinPool");
+		ForkJoinPool forkJoinPool = new ForkJoinPool();
+		System.out.println("Before calling Invoke");
+		List<Integer> sortedlist = forkJoinPool.invoke(task);
+			System.out.println(sortedlist);
+	}
+
+}
+
