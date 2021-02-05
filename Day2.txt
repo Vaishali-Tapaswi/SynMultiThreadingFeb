@@ -1,3 +1,11 @@
+2 Thread clases 
+	-> 1. nest for loop to add items in  List (RAM)
+	-> 2. In a for, do some calculations (CPU)
+Main
+	Create 10 instances of both and observe JVisualVM
+	
+
+-------------------------
 Lab1  - 
 		class .. extends Thread ..run(for loop with random sleep)
 		Start 3 threads from main and main should stop execution till one of the threads complete its execution
