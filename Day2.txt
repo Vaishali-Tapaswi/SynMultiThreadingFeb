@@ -5,3 +5,47 @@ Lab1  -
 Lab 2 - Write Thread for processing -> elctrification, Colouring, furniture, ready
 	main -> create 3 threads and observe there execution.
 	
+	import java.util.concurrent.CountDownLatch;
+	import java.util.concurrent.CyclicBarrier;
+
+	class Lab2Helper implements Runnable{
+		private CyclicBarrier barrier;
+
+		public Lab2Helper(CyclicBarrier barrier) {
+			super();
+			this.barrier = barrier;
+		}
+
+		public void run() {
+			try{
+			String name = Thread.currentThread().getName();
+			System.out.println("Electrification of " + name +"  started....");
+			try{ Thread.sleep((int)(Math.random()*1000));}catch(Exception e){}
+			barrier.await();
+			System.out.println("Electrification Done, waiting to start Colouring for " + name);
+			try{ Thread.sleep((int)(Math.random()*1000));}catch(Exception e){}
+			barrier.await();
+			System.out.println("Colouring Done, waiting for Furniture for " + name);
+			try{ Thread.sleep((int)(Math.random()*1000));}catch(Exception e){}
+			barrier.await();
+			System.out.println(name + " is ready....");
+			}catch(Exception e){
+				System.out.println(e);
+			}
+		};
+	}
+
+	public class Lab2 {
+	public static void main(String[] args) {
+		CyclicBarrier barrier = new CyclicBarrier(3);
+		Thread t1 = new Thread(new Lab2Helper(barrier));
+		t1.setName("Flat1");
+		Thread t2 = new Thread(new Lab2Helper(barrier));
+		t2.setName("Flat2");
+		Thread t3 = new Thread(new Lab2Helper(barrier));
+		t3.setName("Flat3");
+		t1.start();
+		t2.start();
+		t3.start();
+	}
+	}
